@@ -27,7 +27,7 @@ This guide is organized into Markdown chapters. Each chapter guides a part of th
 
 ## Repo setup
 
-TODO: Write on how the repo is organized and link to the other md files with there titles for easy navigation. Slight explaination of each chapter and why it has been made.
+TODO: Write on how the repo is organized and link to the other md files with there titles for easy navigation. Slight explanation of each chapter and why it has been made.
 
 TODO: Write on how VS codium is setup for this project.
 
