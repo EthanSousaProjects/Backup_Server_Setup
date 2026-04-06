@@ -1,10 +1,16 @@
 {
     "cSpell.words": [
         "Armbian",
+        "BACKUPSERVER",
         "Balena",
+        "diskstats",
+        "eraseall",
         "hardkernal",
         "Imager",
+        "Keepass",
         "Odroid",
-        "Petitboot"
+        "odroidhc",
+        "Petitboot",
+        "sshadmin"
     ]
 }

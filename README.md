@@ -24,6 +24,7 @@ This guide is organized into Markdown chapters. Each chapter guides a part of th
 - [Installing OMV](01_Installing_OMV.md) - Installing the OS to the
 - TOD0: Rsync Setup
 - TODO: Rsnapshot setup
+- TODO: Remote Backup server remote access setup (Zerotier)
 
 ## Repo setup
 
