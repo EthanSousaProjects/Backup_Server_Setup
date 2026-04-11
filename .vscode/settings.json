@@ -11,6 +11,9 @@
         "Odroid",
         "odroidhc",
         "Petitboot",
-        "sshadmin"
+        "sshadmin",
+        "writecache",
+        "AGPLV",
+        "spindown"
     ]
 }

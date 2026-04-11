@@ -1,8 +1,8 @@
 # Installing Open Media Vault
 
-Date Written: 25/02/2026 TODO: Update
+Date Written: 07/04/2026 TODO: Update
 
-This guide outlines the process of installing Open Media Vault (OMV) on the Odroid HC4 specifically. It must be noted that at the time of writing. There are many ways to install OMV depending on platform (X86 PC, Raspberry Pi, etc). This guide will go over the specifics of installing OMV on the HC4. Please research the process for your appropriate platform. You can view my [NAS Setup guide](https://github.com/EthanSousaProjects/Personal_Server_Setup) which uses an X86 Pc for installing OMV. Further details of this method and others can be found in the [OMV installation documentation page](https://docs.openmediavault.org/en/latest/installation/index.html).
+This guide outlines the process of installing Open Media Vault (OMV) on the Odroid HC4 specifically. It must be noted that at the time of writing. There are many ways to install OMV depending on platform (X86 PC, Raspberry Pi, etc). This guide will go over the specifics of installing OMV on the HC4. Please research the process for your appropriate platform. You can view my [NAS Setup guide](https://github.com/EthanSousaProjects/Personal_Server_Setup) which uses an X86 computer for installing OMV. Further details of this method and others can be found in the [OMV installation documentation page](https://docs.openmediavault.org/en/latest/installation/index.html).
 
 ## SD card Image flashing
 
@@ -83,6 +83,8 @@ Now that everything is up to date, I normally change the following:
 - Download the plugin `openmediavault-diskstats` found in `System > Plugins` for better disk monitoring.
 - Make sure my user created earlier is part of the `_ssh` group in `User Management > Users` to allow that account to ssh into the server.
 - Change the hostname and domain name to something more related to the server by logging in via SSH and running the command `hostnamectl set-hostname <new hostname>`.
+- Install the OMV extras repo by running the command `sudo wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash` found on the [OMV extras page](https://wiki.omv-extras.org/). Please check that the command has not changed since this documentation was written.
+  - Once these plugins become and option, I download the plugin `openmediavault-writecache` found in `System > Plugins` to reduce SD card writes.
 
 Make sure to apply any of these changes.
 
@@ -92,7 +94,7 @@ As stated before, you could set a static IP address with your routers DHCP table
 
 Firstly, login via ssh using the non-root account created earlier and run the command `armbian-config`. This will bring up a configuration utility to help with some system admin tasks. Using the arrow keys and enter, we can navigate around the pages.
 
-![](Installing_OMV/Armbian_Config_Utility.png)
+![Armbian Configuration Utility](Installing_OMV/Armbian_Config_Utility.png)
 
 In this menu, navigate to `Network > NEA001 > NEA002`. This should show us all of our network interfaces (should only be one if just wired ethernet end0 in my case). We will now setup a static IP address following the instructions bellow:
 
@@ -112,8 +114,34 @@ Once the system changes have taken effect, you will be able to connect to the se
 
 Now that the basic system is configured, we can mount the drives. If the drives are not connected/ powered, shutdown the system, disconnect power and then connect the drives before powering the system back up.
 
-My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md) gives more details on file systems and the advantages of using [ZFS](https://en.wikipedia.org/wiki/ZFS) which I would recommend using. Due to ZFS not really working on ARM boards like mine. I will use [EXT4](https://en.wikipedia.org/wiki/Ext4) as the filesystem as it is the most commonly used one in linux. Both drives will be mounted as individual storage areas mounted in the same manner with a slight change in name. To start, navigate to `Storage > Disks`. Here we should see three drives. The SD card and the HDDs. If you only see the SD card, you must click on the magnifying glass to scan for them. Once that completes, you should see all the drives.
+My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md) gives more details on file systems and the advantages of using [ZFS](https://en.wikipedia.org/wiki/ZFS) which I would recommend using. Due to ZFS not working on ARM boards like mine, I will use [EXT4](https://en.wikipedia.org/wiki/Ext4) as the filesystem as it is the most commonly used in linux. Both drives will be mounted as individual storage areas mounted in the same manner with a slight change in name. To start, navigate to `Storage > Disks`. Here we should see three drives. The SD card and the HDDs. If you only see the SD card, you must click on the magnifying glass to scan for them. Once that completes, you should see all the drives.
 
-TODO: Write basic Install guide
+This guide will only detail my settings for my drives on this server. It will not go into detail on how to set this all up. For a detailed guide on disc setup and configuration options, please read through My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md). Specifically the `Drive Setup/ Storage Page` section.
 
-TODO: Add link about more OMV details to NAS repo as more detailed. Keep this basic.
+Under the menu `Storage > Discs` I set the following settings for my main storage drive:
+
+- Advanced Power Management = `1 - Minimum power usage with standby (spindown)`.
+- Advanced Advanced Acoustic Management = `Minimum performance, minimum acoustic output`.
+- Spindown time = `10 minutes`.
+- Enable write-cache = `enabled`.
+
+Under the sub menus in `Storage > S.M.A.R.T.`. I made the following selections/ options:
+
+- Under menu `settings`:
+  - Enabled checked.
+  - Check interval = `7200`.
+  - Power mode = `Never`.
+  - Maximum = `80 degrees C`.
+- Under menu `Devices` with  the drive:
+  - Monitoring enabled.
+  - Use of global settings.
+- Under menu `Scheduled Tasks` with the drive:
+  - Setup a short self test on Sunday every week at 3am.
+  - Setup a long self test on the 4th day of a month at 4am.
+
+Once I made all these settings, I mounting the drive under the menu `Storage > File Systems`.
+
+Shared folders to be used by Rsync will be detailed in the
+TODO: add in Rsync doc page section.
+
+TODO: Fix the documentation so that it is just one drive instead of 2 due to board issues and wanting to have a spare drive.
