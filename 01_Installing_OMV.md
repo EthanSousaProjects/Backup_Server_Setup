@@ -2,7 +2,7 @@
 
 Date Written: 07/04/2026 TODO: Update
 
-This guide outlines the process of installing Open Media Vault (OMV) on the Odroid HC4 specifically. It must be noted that at the time of writing. There are many ways to install OMV depending on platform (X86 PC, Raspberry Pi, etc). This guide will go over the specifics of installing OMV on the HC4. Please research the process for your appropriate platform. You can view my [NAS Setup guide](https://github.com/EthanSousaProjects/Personal_Server_Setup) which uses an X86 computer for installing OMV. Further details of this method and others can be found in the [OMV installation documentation page](https://docs.openmediavault.org/en/latest/installation/index.html).
+This guide outlines the process of installing Open Media Vault (OMV) on the Odroid HC4 specifically. It must be noted that at the time of writing. There are many ways to install OMV depending on platform (X86 PC, Raspberry Pi, etc). This guide will go over the specifics of installing OMV on the Odroid HC4. Please research the process for your appropriate platform. You can view my [NAS Setup guide](https://github.com/EthanSousaProjects/Personal_Server_Setup) which uses an X86 computer for installing OMV. Further details of this method and others can be found in the [OMV installation documentation page](https://docs.openmediavault.org/en/latest/installation/index.html).
 
 ## SD card Image flashing
 
@@ -101,8 +101,7 @@ In this menu, navigate to `Network > NEA001 > NEA002`. This should show us all o
 1) Select the `static Set IP manually` mode.
 2) Change the IP address to something outside your DHCP range and keep the `/24`. You can find your DHCP range by logging into your router and looking at your DHCP settings. I will set my IP address to be `192.168.1.50`.
 3) Keep default route as the IP address of your router. This is normally `192.168.0.1`.
-4) For the DNS server IP addresses, you can either use upstream servers found in the [Pi-hole documentation](https://docs.pi-hole.net/guides/dns/upstream-dns-providers/). Cloudflare `1.1.1.1` and google `8.8.8.8` are commonly used. Or you can use your router IP address. As I have a custom dns server setup on the NAS/ router. I will use my router IP address. My guide for setting up a custom DNS server with Pi-hole can be found in 
-TODO: Update link to Pi-hole tutorial on NAS when I am able to.
+4) For the DNS server IP addresses, you can either use upstream servers found in the [Pi-hole documentation](https://docs.pi-hole.net/guides/dns/upstream-dns-providers/). Cloudflare `1.1.1.1` and google `8.8.8.8` are commonly used. Or you can use your router IP address. As I have a custom dns server setup on the NAS/ router. I will use my router IP address. My guide for setting up a custom DNS server with Pi-hole can be found in [my NAS Pi-hole setup guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/09_DNS_Adblocking_Pihole_With_Unbound.md).
 5) In the confirm screen, review the network configuration.
 6) You will now be presented with a confirm screen. When this is clicked you will be disconnected.
 
@@ -112,11 +111,11 @@ Once the system changes have taken effect, you will be able to connect to the se
 
 ## Drive setup
 
-Now that the basic system is configured, we can mount the drives. If the drives are not connected/ powered, shutdown the system, disconnect power and then connect the drives before powering the system back up.
+Now that the basic system is configured, we can mount the drive. If the drive is not connected/ powered, shutdown the system, disconnect power and then connect the drives before powering the system back up.
 
-My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md) gives more details on file systems and the advantages of using [ZFS](https://en.wikipedia.org/wiki/ZFS) which I would recommend using. Due to ZFS not working on ARM boards like mine, I will use [EXT4](https://en.wikipedia.org/wiki/Ext4) as the filesystem as it is the most commonly used in linux. Both drives will be mounted as individual storage areas mounted in the same manner with a slight change in name. To start, navigate to `Storage > Disks`. Here we should see three drives. The SD card and the HDDs. If you only see the SD card, you must click on the magnifying glass to scan for them. Once that completes, you should see all the drives.
+My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md) gives more details on file systems and the advantages of using [ZFS](https://en.wikipedia.org/wiki/ZFS) which I would recommend using. Due to ZFS not working on ARM boards like mine, I will use [EXT4](https://en.wikipedia.org/wiki/Ext4) as the filesystem as it is the most commonly used in linux. To start, navigate to `Storage > Disks`. Here we should see two drives. The SD card and the HDD. If you only see the SD card, you must click on the magnifying glass to scan for them. Once that completes, you should see all the drives.
 
-This guide will only detail my settings for my drives on this server. It will not go into detail on how to set this all up. For a detailed guide on disc setup and configuration options, please read through My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md). Specifically the `Drive Setup/ Storage Page` section.
+This guide will only detail my settings for my drive on this server. It will not go into detail on how to set this all up. For a detailed guide on disc setup and configuration options, please read through My [NAS OMV install guide](https://github.com/EthanSousaProjects/Personal_Server_Setup/blob/main/01_Installing_OMV.md). Specifically the `Drive Setup/ Storage Page` section.
 
 Under the menu `Storage > Discs` I set the following settings for my main storage drive:
 
@@ -141,7 +140,5 @@ Under the sub menus in `Storage > S.M.A.R.T.`. I made the following selections/ 
 
 Once I made all these settings, I mounting the drive under the menu `Storage > File Systems`.
 
-Shared folders to be used by Rsync will be detailed in the
-TODO: add in Rsync doc page section.
-
-TODO: Fix the documentation so that it is just one drive instead of 2 due to board issues and wanting to have a spare drive.
+Shared folders to be used by Rsync are detailed in the
+TODO: add in Rsync doc page section link.
